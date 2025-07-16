@@ -5,6 +5,7 @@ const c2 = "#f8f5c3ff";
 const c3 = "#929016ff";
 const c4 = "#a7a70cff";
 const c5 = "#e8e8acff";
+const c6 = "#dbdb6eff"
 
 const s = StyleSheet.create({
   
@@ -121,6 +122,74 @@ const s = StyleSheet.create({
     color: c4,
     textAlign: "left",
     opacity: 0.9
+  },
+
+  v4: {
+    flex: 1,
+    justifyContent: "space-around",
+    alignItems: "center"
+  },
+
+  v5: {
+    width: "80%",
+    height: "90%",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(100, 104, 89, 0.5)",
+    borderWidth: 5,
+    borderRadius: 20,
+    borderColor: "rgba(191, 202, 105, 1)"
+  },
+
+  v6: {
+    // borderWidth: 2,
+    paddingVertical: 50
+  },
+  
+  v7: {
+    height: "40%",
+    width: "90%",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItems: "center",
+    // borderWidth: 2
+  },
+
+  t4: {
+    width: "100%",
+    fontSize: 25,
+    fontWeight: "900",
+    color: c6,
+    textAlign: "left",
+    padding: 5,
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: c2
+  },
+
+  v8: {
+    width: 170,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+
+  t5: {
+    width: 80,
+    fontSize: 18,
+    fontWeight: "bold",
+    color: c3,
+    backgroundColor: c2,
+    paddingVertical: 5,
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: c1,
+    textAlign: "center",
+    elevation: 50,
+    shadowColor: "#000",
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 3
   }
 })
 
