@@ -5,7 +5,7 @@ const c2 = "#f8f5c3ff";
 const c3 = "#929016ff";
 const c4 = "#a7a70cff";
 const c5 = "#e8e8acff";
-const c6 = "#dbdb6eff"
+const c6 = "#dbdb6eff";
 
 const s = StyleSheet.create({
   
