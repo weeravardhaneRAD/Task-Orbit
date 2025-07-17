@@ -1,169 +1,42 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import s from "./Styles"
-import React, { useEffect, useState } from 'react';
-import {
-  FlatList,
-  Modal,
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { useState } from "react";
+import HomePage from "./Files/HomePage"
+import TaskEditPage from "./Files/TaskEditPage";
 
 const App = () => {
 
-  // Variables ============================
+  // Variables ========================
 
-  type Tasks = {
+  const [ActiveScreen, setActiveScreen] = useState<string>("HomePage")
+  const [ClickedId, setClickedId] = useState<number>(0)
+
+  type TasksType = {
     id: number,
     title: string,
     note: string
   }
 
-  const [AllTasks, setAllTasks] = useState<Tasks[]>([
+  const [AllTasks, setAllTasks] = useState<TasksType[]>([
     {id: 1, title: "task 1", note: "note 1"}
   ])
-  const [ShowingTasks, setShowingTasks] = useState<Tasks[]>([])
 
-  useEffect(() => {
+  // ========================
 
-    setShowingTasks(AllTasks)
-  
-  }, [AllTasks])
-
-  const [ShowModal, setShowModal] = useState(false)
-  const [NewTitle, setNewTitle] = useState("")
-  const [NewNote, setNewNote] = useState("")
-
-  // ============================
-  // ============================
-  // ============================
-
-
-  // onPress ============================
-
-  const onAddTaskPress = () => {
-
-    setShowModal(true)
+  if(ActiveScreen==="HomePage")
+  {
+    return(
+      <HomePage setActiveScreen={setActiveScreen} setClickedId={setClickedId} AllTasks={AllTasks} setAllTasks={setAllTasks}/>
+    )
   }
-
-  const onModalAddPress = () => {
-
-    const newId = AllTasks.length > 0 ? AllTasks[AllTasks.length-1].id + 1 : 1;
-    const newArray = [...AllTasks, {id: newId, title: NewTitle.trim(), note: NewNote.trim()}];
-    setAllTasks(newArray)
-    setNewTitle("")
-    setNewNote("")
-    setShowModal(false)
+  else if(ActiveScreen==="TaskEditPage")
+  {
+    return(
+      <TaskEditPage
+        setActiveScreen={setActiveScreen}
+        ClickedId={ClickedId}
+        AllTasks={AllTasks}
+        setAllTasks={setAllTasks}/>
+    )
   }
-
-  const onModalClosePress = () => {
-
-    setNewTitle("")
-    setNewNote("")
-    setShowModal(false)
-  }
-
-  // ============================
-  // ============================
-  // ============================
-
-  return (
-
-    <SafeAreaView style={s.sav}>
-
-
-
-      <View style={s.v1}>
-        
-        <TextInput
-          style={s.i1}
-          placeholder="Search"
-        ></TextInput>
-        <TouchableOpacity
-          onPress={onAddTaskPress}>
-          <Text style={s.t1}>+ Add Task</Text>
-        </TouchableOpacity>
-      </View>
-
-      <Modal
-        visible={ShowModal}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={() => setShowModal(false)}
-      >
-        <View style={s.v4}>
-
-          <View style={s.v5}>
-
-            <View style={s.v6}>
-              <Text style={s.t4}>Add New Task</Text>
-            </View>
-
-            <View style={s.v7}>
-              <TextInput
-                style={s.i1}
-                value={NewTitle}
-                onChangeText={setNewTitle}
-                placeholder="Task Title"
-              />
-              <TextInput
-                style={s.i1}
-                value={NewNote}
-                onChangeText={setNewNote}
-                placeholder="Task Note"
-              />
-
-              <View style={s.v8}>
-                <TouchableOpacity
-                  onPress={onModalAddPress}
-                  disabled={NewTitle.trim() ? false : true}
-                  style={{opacity: NewTitle.trim() ? 1 : 0.5}}
-                >
-                  <Text style={s.t5}>Add</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={onModalClosePress}>
-                  <Text style={s.t5}>Close</Text>
-                </TouchableOpacity>
-              </View>
-            
-            </View>
-          </View>
-        </View>
-      </Modal>
-
-      <View style={s.v2}>
-
-        <ScrollView style={s.sv1}>
-
-          <View style={s.v3}>
-            {ShowingTasks.map((item, index) => (
-
-              <TouchableOpacity key={item.id} style={s.b1}>
-                <Text style={s.t2}>{item.title}</Text>
-                <Text style={s.t3}>{item.note}</Text>
-              </TouchableOpacity>
-
-            ))}
-          </View>
-
-        </ScrollView> 
-
-      </View>
-
-    </SafeAreaView>
-  
-  );
 }
-
 
 export default App;
