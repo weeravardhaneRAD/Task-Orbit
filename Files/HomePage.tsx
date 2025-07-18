@@ -5,11 +5,14 @@
  * @format
  */
 
+
 import s from "./Styles"
+import F from "./Functions"
 import React, { useEffect, useState } from 'react';
 import {
   FlatList,
   Modal,
+  NativeModules,
   SafeAreaView,
   ScrollView,
   Text,
@@ -18,13 +21,17 @@ import {
   View,
 } from 'react-native';
 
+
+const {NotificationModule} = NativeModules;
+
 const HomePage = (
   {
     setActiveScreen,
     setClickedId,
     AllTasks,
     setAllTasks,
-    TasksType
+    TasksType,
+    ScreenChange
   }: any) => {
 
   // Variables ============================
@@ -40,6 +47,7 @@ const HomePage = (
   useEffect(() => {
 
     setShowingTasks(AllTasks)
+    F.RequestPermission("PostNotification")
   
   }, [AllTasks])
 
@@ -57,6 +65,7 @@ const HomePage = (
   const onAddTaskPress = () => {
 
     setShowModal(true)
+    NotificationModule.showNotification("Title", "Message")
   }
 
   const onModalAddPress = () => {
@@ -79,7 +88,7 @@ const HomePage = (
 
   const onTaskPress = (id: number) => {
 
-    setActiveScreen("TaskEditPage")
+    ScreenChange("TaskEditPage")
     setClickedId(id)
   }
 
