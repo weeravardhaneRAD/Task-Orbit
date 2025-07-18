@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HomePage from "./Files/HomePage"
 import TaskEditPage from "./Files/TaskEditPage";
+import { BackHandler } from "react-native";
 
 const App = () => {
 
   // Variables ========================
 
   const [ActiveScreen, setActiveScreen] = useState<string>("HomePage")
+  const [LastScreen, setLastScreen] = useState<string>("")
   const [ClickedId, setClickedId] = useState<number>(0)
 
   type TasksType = {
@@ -20,11 +22,59 @@ const App = () => {
   ])
 
   // ========================
+  // ========================
+  // ========================
+
+
+  // Functions ========================
+
+  const ScreenChange = (NewScreen:string) => {
+
+    setLastScreen(ActiveScreen)
+    setActiveScreen(NewScreen)
+
+  }
+
+  const onBackButtonPress = () => {
+  
+    console.log(ActiveScreen)
+    console.log(LastScreen)
+
+    if(ActiveScreen === "HomePage")
+    {
+      BackHandler.exitApp();
+    }
+    else
+    {
+      setActiveScreen(LastScreen)
+    }
+
+    return true
+  
+  }
+
+  useEffect(() => {
+
+    const BackButtonPress = BackHandler.addEventListener("hardwareBackPress", onBackButtonPress)
+
+    return () => BackButtonPress.remove(); // remove on unmount
+
+  }, [ActiveScreen])
+
+  // ========================
+  // ========================
+  // ========================
 
   if(ActiveScreen==="HomePage")
   {
     return(
-      <HomePage setActiveScreen={setActiveScreen} setClickedId={setClickedId} AllTasks={AllTasks} setAllTasks={setAllTasks}/>
+      <HomePage
+        setActiveScreen={setActiveScreen}
+        setClickedId={setClickedId}
+        AllTasks={AllTasks}
+        setAllTasks={setAllTasks}
+        ScreenChange={ScreenChange}
+      />
     )
   }
   else if(ActiveScreen==="TaskEditPage")
@@ -34,7 +84,9 @@ const App = () => {
         setActiveScreen={setActiveScreen}
         ClickedId={ClickedId}
         AllTasks={AllTasks}
-        setAllTasks={setAllTasks}/>
+        setAllTasks={setAllTasks}
+        ScreenChange={ScreenChange}
+      />
     )
   }
 }
