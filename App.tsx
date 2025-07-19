@@ -14,11 +14,39 @@ const App = () => {
   type TasksType = {
     id: number,
     title: string,
-    note: string
+    note: string,
+    reminders:
+    [
+      {
+        id:number,
+        year:number,
+        month:number,
+        day:number,
+        hour:number,
+        minute:number,
+        note:string
+      }
+    ]
   }
 
   const [AllTasks, setAllTasks] = useState<TasksType[]>([
-    {id: 1, title: "task 1", note: "note 1"}
+    {
+      id: 1,
+      title: "task 1",
+      note: "note 1",
+      reminders:
+      [
+        {
+          id: 1,
+          year: 2025,
+          month: 10,
+          day: 22,
+          hour: 12,
+          minute: 20,
+          note: "hello hello hello"
+        }
+      ]
+    }
   ])
 
   // ========================
