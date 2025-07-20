@@ -22,7 +22,7 @@ import {
 } from 'react-native';
 
 
-const {NotificationModule} = NativeModules;
+const {NotificationModule, FullScreenAlarmModule} = NativeModules;
 
 const HomePage = (
   {
@@ -66,6 +66,7 @@ const HomePage = (
 
     setShowModal(true)
     NotificationModule.showNotification("Title", "Message")
+    // FullScreenAlarmModule.showFullScreenAlarm("Alarm Title", "Alarm Message")
   }
 
   const onModalAddPress = () => {
